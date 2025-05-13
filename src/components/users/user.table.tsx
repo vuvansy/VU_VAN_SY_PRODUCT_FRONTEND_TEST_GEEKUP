@@ -8,7 +8,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 const PAGE_SIZE_DEFAULT = 10;
 
 const UserTable = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, _setSearchParams] = useSearchParams();
     const [dataUsers, setDataUsers] = useState<IUser[]>([]);
     const [loading, setLoading] = useState(false);
 
