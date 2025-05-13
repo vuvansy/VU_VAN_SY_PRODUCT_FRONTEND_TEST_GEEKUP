@@ -10,6 +10,7 @@ import AlbumPage from '@/pages/admin/manage.album';
 import UserPage from '@/pages/admin/manage.user';
 import LayoutAdmin from 'components/layout/layout.admin';
 import DetailAlbums from 'components/albums/detail.album';
+import UserAlbumsDetail from './components/users/detail.user';
 
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/users",
         element: <UserPage />,
+      },
+       {
+        path: "/users/:id",
+        element: <UserAlbumsDetail />,
       },
 
     ]
