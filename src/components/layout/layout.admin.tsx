@@ -51,7 +51,7 @@ const LayoutAdmin = () => {
                 style={{
                     position: 'absolute',
                     top: 16,
-                    left: collapsed ? 30 : 20, // dịch vị trí theo trạng thái Sider
+                    left: collapsed ? 30 : 20,
                     zIndex: 1000,
                     transition: 'left 0.3s ease',
                 }}
@@ -74,9 +74,6 @@ const LayoutAdmin = () => {
                 onCollapse={(value) => setCollapsed(value)}
             >
                 <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
-                    {/* <Link to="/">
-                        <img className='w-[100px]' src='/geekup-logo-general.svg' alt='GEEK Up - PF GI' />
-                    </Link> */}
                 </div>
 
                 <Menu
