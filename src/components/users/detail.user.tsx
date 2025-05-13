@@ -1,22 +1,21 @@
 import { getAlbumsByIdUserAPI, getUserByIdAPI } from "@/services/api";
-import { ArrowLeftOutlined, EyeOutlined, ProfileOutlined, SolutionOutlined } from "@ant-design/icons";
-import { Avatar, Breadcrumb, Button, Card, Divider, Spin } from "antd";
+import { ArrowLeftOutlined, EyeOutlined, SolutionOutlined } from "@ant-design/icons";
+import { Avatar, Breadcrumb, Button, Card, Divider} from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Space, Table, Tag } from 'antd';
+import { Space, Table } from 'antd';
 import type { TableProps } from 'antd';
+import Loading from "components/layout/loading";
 
 
 const UserAlbumsDetail = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
-
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState<IUser | null>(null);
     const [dataAlbumsByIdUser, setDataAlbumsByIdUser] = useState<IAlbum[]>([]);
 
-    //B1 có id lấy thông tin người dùng theo id
     const loadUser = async (id: number) => {
         try {
             const res = await getUserByIdAPI(id);
@@ -26,8 +25,7 @@ const UserAlbumsDetail = () => {
         }
     };
 
-    //B2 lấy danh sách Albums theo id người dùng mạc định lấy ?_end=10&_start=0
-    const loadAlbumsbyIdUser = async (start: number, end: number, id: number) => {
+    const loadAlbumsByIdUser = async (start: number, end: number, id: number) => {
         setLoading(true);
         try {
             const res = await getAlbumsByIdUserAPI(start, end, id);
@@ -44,7 +42,7 @@ const UserAlbumsDetail = () => {
         if (id) {
             const userId = parseInt(id, 10);
             loadUser(userId);
-            loadAlbumsbyIdUser(0, 10, userId);
+            loadAlbumsByIdUser(0, 10, userId);
         }
     }, [id]);
 
@@ -84,19 +82,10 @@ const UserAlbumsDetail = () => {
     ];
 
 
-
-
     return (
         <div>
             {loading &&
-                <div style={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)"
-                }}>
-                    <Spin size="large" />
-                </div>
+                <Loading/>
             }
 
             {user && (

@@ -2,8 +2,9 @@ import { getAlbumsByIdAPI, getUserByIdAPI } from "@/services/api";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeftOutlined, ProfileOutlined } from '@ant-design/icons';
-import { Avatar, Breadcrumb, Button, Card, Divider, Spin } from 'antd';
+import { Avatar, Breadcrumb, Button, Card, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import Loading from "components/layout/loading";
 
 const DetailAlbums = () => {
     const { id } = useParams();
@@ -44,14 +45,7 @@ const DetailAlbums = () => {
     return (
         <div>
             {loading &&
-                <div style={{
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)"
-                }}>
-                    <Spin size="large" />
-                </div>
+                <Loading/>
             }
 
             {dataAlbums && (
