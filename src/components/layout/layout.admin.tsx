@@ -54,10 +54,12 @@ const LayoutAdmin = () => {
                 theme='light'
                 collapsible
                 collapsed={collapsed}
-                onCollapse={(value) => setCollapsed(value)}>
+                onCollapse={(value) => setCollapsed(value)}
+            >
                 <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
                     <img className='w-[100px]' src='/geekup-logo-general.svg' alt='geekup-logo-general' />
                 </div>
+
                 <Menu
                     style={{ paddingTop: 8 }}
                     selectedKeys={[activeMenu]}
@@ -68,7 +70,13 @@ const LayoutAdmin = () => {
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }} />
-                <Content style={{ margin: '24px' }}>
+                <Content
+                    style={{
+                        margin: '24px',
+                        height: 'calc(100vh - 64px)',
+                        overflow: 'auto',
+                    }}
+                >
                     <Outlet />
                 </Content>
             </Layout>

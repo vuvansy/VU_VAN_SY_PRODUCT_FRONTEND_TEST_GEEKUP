@@ -88,19 +88,29 @@ const AlbumTable = () => {
                 const user = dataUsers.find((u) => u.id === userId);
                 if (!user) return 'Unknown';
 
-                const initials = user.name
-                    .split(' ')
-                    .map((word) => word[0])
-                    .join('')
-                    .toUpperCase();
-                const color = getAvatarColor(user.id);
+                // const initials = user.name
+                //     .split(' ')
+                //     .map((word) => word[0])
+                //     .join('')
+                //     .toUpperCase();
+                // const color = getAvatarColor(user.id);
+                const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    user.name
+                )}&background=0D8ABC&color=fff&rounded=true`;
+
 
                 return (
+                    // <Link to={`/users/${user.id}`} className="cursor-pointer">
+                    //     <Space size="middle">
+                    //         <Avatar style={{ backgroundColor: color, color: '#000' }}>
+                    //             {initials}
+                    //         </Avatar>
+                    //         {user.name}
+                    //     </Space>
+                    // </Link>
                     <Link to={`/users/${user.id}`} className="cursor-pointer">
                         <Space size="middle">
-                            <Avatar style={{ backgroundColor: color, color: '#000' }}>
-                                {initials}
-                            </Avatar>
+                            <Avatar src={avatarUrl} />
                             {user.name}
                         </Space>
                     </Link>
@@ -123,25 +133,25 @@ const AlbumTable = () => {
         },
     ];
 
-    const getAvatarColor = (id: number): string => {
-        const colors = [
-            '#f56a00',
-            '#7265e6',
-            '#ffbf00',
-            '#00a2ae',
-            '#1890ff',
-            '#87d068',
-            '#f5222d',
-        ];
+    // const getAvatarColor = (id: number): string => {
+    //     const colors = [
+    //         '#f56a00',
+    //         '#7265e6',
+    //         '#ffbf00',
+    //         '#00a2ae',
+    //         '#1890ff',
+    //         '#87d068',
+    //         '#f5222d',
+    //     ];
 
-        let hash = id;
-        for (let i = 0; i < 10; i++) {
-            hash = (hash << 5) - hash + (id % 256);
-        }
+    //     let hash = id;
+    //     for (let i = 0; i < 10; i++) {
+    //         hash = (hash << 5) - hash + (id % 256);
+    //     }
 
-        const index = Math.abs(hash) % colors.length;
-        return colors[index];
-    };
+    //     const index = Math.abs(hash) % colors.length;
+    //     return colors[index];
+    // };
 
     return (
         <Table<IAlbum>
