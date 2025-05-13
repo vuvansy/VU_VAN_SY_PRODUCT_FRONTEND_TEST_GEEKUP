@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-    ProfileOutlined,
-    SolutionOutlined,
-} from '@ant-design/icons';
+import {ProfileOutlined, SolutionOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -57,7 +54,9 @@ const LayoutAdmin = () => {
                 onCollapse={(value) => setCollapsed(value)}
             >
                 <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
-                    <img className='w-[100px]' src='/geekup-logo-general.svg' alt='geekup-logo-general' />
+                    <Link to="/">
+                        <img className='w-[100px]' src='/geekup-logo-general.svg' alt='GEEK Up - PF GI' />
+                    </Link>
                 </div>
 
                 <Menu

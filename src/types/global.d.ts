@@ -1,7 +1,7 @@
 export { };
 
 declare global {
-  interface IBackendRes<T> {
+    interface IBackendRes<T> {
         error?: string | string[];
         message: string;
         statusCode: number | string;
@@ -37,4 +37,13 @@ declare global {
         id: number;
         title: string;
     }
+
+    interface IPhoto {
+        albumId: number;
+        id: number;
+        title: string;
+        url: string;
+        thumbnailUrl: string;
+    }
+
 }

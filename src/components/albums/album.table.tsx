@@ -110,7 +110,7 @@ const AlbumTable = () => {
                     // </Link>
                     <Link to={`/users/${user.id}`} className="cursor-pointer">
                         <Space size="middle">
-                            <Avatar src={avatarUrl} />
+                            <Avatar src={avatarUrl} alt={user?.name}/>
                             {user.name}
                         </Space>
                     </Link>

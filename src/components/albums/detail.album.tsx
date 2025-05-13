@@ -1,9 +1,10 @@
-import { getAlbumsByIdAPI, getUserByIdAPI } from "@/services/api";
+import { fetchThumbnailUrlAlbumIdAPI, getAlbumsByIdAPI, getUserByIdAPI } from "@/services/api";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeftOutlined, ProfileOutlined } from '@ant-design/icons';
 import { Avatar, Breadcrumb, Button, Card, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { Image } from 'antd';
 import Loading from "components/layout/loading";
 
 const DetailAlbums = () => {
@@ -11,6 +12,7 @@ const DetailAlbums = () => {
     const navigate = useNavigate();
     const [dataAlbums, setDataAlbums] = useState<IAlbum | null>(null);
     const [user, setUser] = useState<IUser | null>(null);
+    const [thumbnails, setThumbnails] = useState<IPhoto[]>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -32,6 +34,11 @@ const DetailAlbums = () => {
                         setUser(userRes.data);
                     }
                 }
+
+                const thumbnailRes = await fetchThumbnailUrlAlbumIdAPI(0, 10, res.data.id);
+                if (Array.isArray(thumbnailRes.data)) {
+                    setThumbnails(thumbnailRes.data);
+                }
             }
         } catch (error) {
             console.error("Error loading album data", error);
@@ -39,13 +46,14 @@ const DetailAlbums = () => {
             setLoading(false);
         }
     };
+
     const handleBack = () => {
         navigate(-1);
     };
     return (
         <div>
             {loading &&
-                <Loading/>
+                <Loading />
             }
 
             {dataAlbums && (
@@ -72,7 +80,6 @@ const DetailAlbums = () => {
                                 <ArrowLeftOutlined className="text-[16px]" />
                             </Button>
                         </div>
-
                         <span>
                             <h4 className="text-[20px] font-medium">Show Album</h4>
                         </span>
@@ -82,19 +89,29 @@ const DetailAlbums = () => {
                             <Card >
                                 <div className="flex gap-[16px]">
                                     <div>
-                                        <Avatar src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name ?? '')}&background=0D8ABC&color=fff&rounded=true`} />
+                                        <Avatar alt={user?.name} src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name ?? '')}&background=0D8ABC&color=fff&rounded=true`} />
                                     </div>
                                     <div className="flex flex-col">
                                         <Link to={`/users/${user?.id}`} className="text-[16px] mb-[8px] font-medium">{user?.name}</Link>
-                                        <a className="cursor-pointer">{user?.email}</a>
+                                        <Link to={`mailto:${user?.email}`}>{user?.email}</Link>
                                     </div>
                                 </div>
                                 <Divider />
-                                <h4 className="text-[20px] font-medium">{dataAlbums.title}</h4>
+                                <h4 className="text-[20px] font-medium mb-[10px]">{dataAlbums.title}</h4>
+                                <Image.PreviewGroup>
+                                    {thumbnails.map((photo) => (
+                                        <Image
+                                            key={photo.id}
+                                            width={150}
+                                            height={66}
+                                            src={photo.thumbnailUrl}
+                                            alt={photo.title}
+                                        />
+                                    ))}
+                                </Image.PreviewGroup>
                             </Card>
                         </Card>
                     </div>
-
                 </>
 
             )}

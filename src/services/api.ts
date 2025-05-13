@@ -25,3 +25,13 @@ export const fetchUsersAPI = () => {
     return axios.get<IBackendRes<IUser>>(urlBackend)
 }
 
+export const fetchThumbnailUrlAlbumIdAPI = (start: number, end: number, id: number) => {
+    const urlBackend = `/photos?_start=${start}&_end=${end}&userId=${id}`;
+    return axios.get<IBackendRes<IPhoto>>(urlBackend)
+}
+
+export const fetchUserPaginationAPI = (start: number, end: number) => {
+    const urlBackend = `/users?_start=${start}&_end=${end}`;
+    return axios.get<IBackendRes<IUser>>(urlBackend);
+};
+

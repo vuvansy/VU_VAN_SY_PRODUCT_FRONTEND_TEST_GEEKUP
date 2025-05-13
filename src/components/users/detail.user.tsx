@@ -1,6 +1,6 @@
 import { getAlbumsByIdUserAPI, getUserByIdAPI } from "@/services/api";
 import { ArrowLeftOutlined, EyeOutlined, SolutionOutlined } from "@ant-design/icons";
-import { Avatar, Breadcrumb, Button, Card, Divider} from "antd";
+import { Avatar, Breadcrumb, Button, Card, Divider } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Space, Table } from 'antd';
@@ -85,7 +85,7 @@ const UserAlbumsDetail = () => {
     return (
         <div>
             {loading &&
-                <Loading/>
+                <Loading />
             }
 
             {user && (
@@ -93,7 +93,7 @@ const UserAlbumsDetail = () => {
                     <Breadcrumb
                         items={[
                             {
-                                href: '/albums',
+                                href: '/users',
                                 title: (
                                     <>
                                         <SolutionOutlined />
@@ -122,11 +122,11 @@ const UserAlbumsDetail = () => {
                             <Card >
                                 <div className="flex gap-[16px]">
                                     <div>
-                                        <Avatar src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name ?? '')}&background=0D8ABC&color=fff&rounded=true`} />
+                                        <Avatar alt={user?.name} src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name ?? '')}&background=0D8ABC&color=fff&rounded=true`} />
                                     </div>
                                     <div className="flex flex-col">
                                         <p className="text-[16px] mb-[8px] font-medium">{user.name}</p>
-                                        <a className="cursor-pointer">{user.email}</a>
+                                        <Link to={`mailto:${user?.email}`}>{user?.email}</Link>
                                     </div>
                                 </div>
                                 <Divider />
