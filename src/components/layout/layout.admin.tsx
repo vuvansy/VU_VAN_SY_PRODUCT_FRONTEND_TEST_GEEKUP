@@ -1,0 +1,79 @@
+import { useEffect, useState } from 'react';
+import {
+    ProfileOutlined,
+    SolutionOutlined,
+} from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Layout, Menu, theme } from 'antd';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+
+const { Header, Content, Sider } = Layout;
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+const items: MenuItem[] = [
+    {
+        label: <Link to='/albums'>Albums</Link>,
+        key: '/albums',
+        icon: <ProfileOutlined />,
+    },
+    {
+        label: <Link to='/users'>Users</Link>,
+        key: '/users',
+        icon: <SolutionOutlined />
+    },
+
+];
+
+
+const LayoutAdmin = () => {
+    const [collapsed, setCollapsed] = useState(false);
+    const location = useLocation();
+
+    const {
+        token: { colorBgContainer },
+    } = theme.useToken();
+
+    const [activeMenu, setActiveMenu] = useState('');
+
+    useEffect(() => {
+        const pathRoot = '/' + location.pathname.split('/')[1];
+
+        const matchedItem = items.find(
+            (item): item is MenuItem & { key: string } =>
+                typeof item?.key === 'string' && pathRoot.startsWith(item.key)
+        );
+
+        const key = matchedItem?.key ?? '/albums';
+        setActiveMenu(key);
+    }, [location]);
+
+    return (
+        <Layout style={{ minHeight: '100vh' }}>
+            <Sider
+                theme='light'
+                collapsible
+                collapsed={collapsed}
+                onCollapse={(value) => setCollapsed(value)}>
+                <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
+                    <img className='w-[100px]' src='/geekup-logo-general.svg' alt='geekup-logo-general' />
+                </div>
+                <Menu
+                    style={{ paddingTop: 8 }}
+                    selectedKeys={[activeMenu]}
+                    mode="inline"
+                    items={items}
+                    onClick={(e) => setActiveMenu(e.key)}
+                />
+            </Sider>
+            <Layout>
+                <Header style={{ padding: 0, background: colorBgContainer }} />
+                <Content style={{ margin: '24px' }}>
+                    <Outlet />
+                </Content>
+            </Layout>
+        </Layout>
+    );
+}
+
+export default LayoutAdmin;

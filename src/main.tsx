@@ -3,37 +3,39 @@ import { createRoot } from 'react-dom/client'
 import '@/index.css'
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
-import Layout from '@/layout.tsx';
-import AlbumPage from 'pages/admin/album.tsx';
-import UserPage from 'pages/admin/user.tsx';
+import AlbumPage from '@/pages/admin/manage.album';
+import UserPage from '@/pages/admin/manage.user';
+import LayoutAdmin from 'components/layout/layout.admin';
+import DetailAlbums from 'components/albums/detail.album';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <LayoutAdmin />,
     children: [
       {
-        path: "/album",
+        index: true,
+        element: <Navigate to="/albums" />,
+      },
+      {
+        path: "/albums",
         element: <AlbumPage />,
       },
       {
-        path: "/user",
+        path: "/albums/:id",
+        element: <DetailAlbums />,
+      },
+      {
+        path: "/users",
         element: <UserPage />,
       },
 
     ]
   },
-  // {
-  //   path: "/login",
-  //   element: <div>login page</div>,
-  // },
-  // {
-  //   path: "/register",
-  //   element: <div>register page</div>,
-  // },
 
 ]);
 
