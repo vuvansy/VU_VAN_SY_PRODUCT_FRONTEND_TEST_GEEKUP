@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {ProfileOutlined, SolutionOutlined} from '@ant-design/icons';
+import { ProfileOutlined, SolutionOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -46,7 +46,27 @@ const LayoutAdmin = () => {
     }, [location]);
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{ minHeight: '100vh', position: 'relative' }}>
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 16,
+                    left: collapsed ? 30 : 20, // dịch vị trí theo trạng thái Sider
+                    zIndex: 1000,
+                    transition: 'left 0.3s ease',
+                }}
+            >
+                <Link to="/">
+                    <img
+                        src="/geekup-logo-general.svg"
+                        alt="GEEK Up"
+                        style={{
+                            height: 40,
+                            width: 100,
+                        }}
+                    />
+                </Link>
+            </div>
             <Sider
                 theme='light'
                 collapsible
@@ -54,9 +74,9 @@ const LayoutAdmin = () => {
                 onCollapse={(value) => setCollapsed(value)}
             >
                 <div style={{ height: 32, margin: 16, textAlign: 'center' }}>
-                    <Link to="/">
+                    {/* <Link to="/">
                         <img className='w-[100px]' src='/geekup-logo-general.svg' alt='GEEK Up - PF GI' />
-                    </Link>
+                    </Link> */}
                 </div>
 
                 <Menu

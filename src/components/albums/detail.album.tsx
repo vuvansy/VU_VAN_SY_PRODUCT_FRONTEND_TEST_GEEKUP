@@ -55,7 +55,6 @@ const DetailAlbums = () => {
             {loading &&
                 <Loading />
             }
-
             {dataAlbums && (
                 <>
                     <Breadcrumb
@@ -113,7 +112,6 @@ const DetailAlbums = () => {
                         </Card>
                     </div>
                 </>
-
             )}
         </div>
     )
